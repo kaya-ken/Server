@@ -18,10 +18,12 @@ class SlackClient:
         return None
 
     def send_message(self, arg_id, arg_message):
-        self.web_client.chat_postMessage(
+        response = self.web_client.chat_postMessage(
             channel=arg_id, text=arg_message)
+        assert response['ok']
 
     def send_image(self, arg_id, arg_image):
-        self.web_client.files_upload(
+        response = self.web_client.files_upload(
             channels=arg_id,
             file=arg_image)
+        assert response['ok']
