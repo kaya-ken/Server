@@ -5,13 +5,13 @@ class SlackClient:
     def __init__(self, token, proxy):
         self.web_client = slack.WebClient(token=token, proxy=proxy)
 
-    def list_channels(self):
+    def list_up_channels(self):
         channels_call = self.web_client.api_call("channels.list")
         if channels_call.get('ok'):
             return channels_call['channels']
         return None
 
-    def list_users(self):
+    def list_up_users(self):
         users_call = self.web_client.api_call("users.list")
         if users_call.get('ok'):
             return users_call['members']
