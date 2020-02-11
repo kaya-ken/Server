@@ -2,7 +2,7 @@
 
 import socket
 import os
-#import SlackAPI
+import SlackAPI
 import json
 
 import UserInfo
@@ -11,12 +11,11 @@ from PurchaseHistoryLogger import PurchaseHistoryLogger
 
 if __name__ == '__main__':
     user2id = {}
-    # slack_token = os.getenv('SLACK_TOKEN')
-    slack_token = ''
+    slack_token = os.getenv('SLACK_TOKEN')
     logger = PurchaseHistoryLogger()
 
     proxy = 'http://lab-12:Slpl-201@proxy.doshisha.ac.jp:8080'
-    # slackClient = SlackAPI.SlackClient(slack_token, proxy)
+    slackClient = SlackAPI.SlackClient(slack_token, proxy)
     # channels = slackClient.list_up_channels()
     # users = slackClient.list_up_users()
 
@@ -40,6 +39,6 @@ if __name__ == '__main__':
     json_data = json.dumps(receivedUserInfo, default=lambda o: o.__dict__, indent=4)
 
     decoded_team = UserInfo.ReceivedData(**json.loads(json_data))
-    logger.update_purchase_history(decoded_team)
+    logger.log_purchase(decoded_team)
     logger.debug()
 
