@@ -14,7 +14,7 @@ if __name__ == '__main__':
     slack_token = os.getenv('SLACK_TOKEN')
     logger = PurchaseHistoryLogger()
 
-    proxy = 'http://lab-12:Slpl-201@proxy.doshisha.ac.jp:8080'
+    proxy = 'MY_PROXY'
     slackClient = SlackAPI.SlackClient(slack_token, proxy)
     # channels = slackClient.list_up_channels()
     # users = slackClient.list_up_users()
