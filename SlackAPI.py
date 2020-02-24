@@ -2,8 +2,8 @@ import slack
 
 
 class SlackClient:
-    def __init__(self, token, proxy):
-        self.web_client = slack.WebClient(token=token, proxy=proxy)
+    def __init__(self, token):#, proxy):
+        self.web_client = slack.WebClient(token=token)#, proxy=proxy)
 
     def list_up_channels(self):
         channels_call = self.web_client.api_call("channels.list")
