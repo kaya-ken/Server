@@ -29,6 +29,7 @@ if __name__ == '__main__':
     logger = PurchaseHistoryLogger()
 
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+        s.settimeout(1000)
         s.bind(('0.0.0.0', 8084))
 
         print('listening...')
@@ -36,11 +37,14 @@ if __name__ == '__main__':
         while True:
             conn, addr = s.accept()
             with conn:
-                while True:
+                try:
                     data = conn.recv(1024)
                     if not data:
                         break
                     print('data : {}, addr: {}'.format(data, addr))
                     decoded_user_info = UserInfo.ReceivedData(**json.loads(data))
                     logger.log_purchase(decoded_user_info)
-                    conn.sendall(b'Received: ' + data)
+                    conn.send(b'ok')
+                except:
+                    pass
+                conn.close()
